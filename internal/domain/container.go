@@ -76,14 +76,6 @@ func (c *Container) StartCleaning(now time.Time) error {
 	return nil
 }
 
-func (c Container) CompletedCleaning(now time.Time) (Container, error) {
-	copy := c
-	if err := copy.CompleteCleaning(now); err != nil {
-		return Container{}, err
-	}
-	return copy, nil
-}
-
 func (c *Container) CompleteCleaning(now time.Time) error {
 	if c.State != ContainerCleaning {
 		return TransitionError{Entity: "container", From: string(c.State), To: string(ContainerAvailable)}

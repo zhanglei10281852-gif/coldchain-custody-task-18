@@ -18,12 +18,7 @@ func (s *ContainerService) StartCleaning(ctx context.Context, containerID string
 
 func (s *ContainerService) CompleteCleaning(ctx context.Context, containerID string) (domain.Container, error) {
 	return s.change(ctx, containerID, "container_cleaning_completed", func(container *domain.Container) error {
-		completed, err := container.CompletedCleaning(s.clock.Now())
-		if err != nil {
-			return err
-		}
-		_ = completed
-		return nil
+		return container.CompleteCleaning(s.clock.Now())
 	})
 }
 
